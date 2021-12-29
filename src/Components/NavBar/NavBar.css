@@ -1,0 +1,19 @@
+nav {
+	display: flex;
+	justify-content: space-between;
+	padding: 0px 20px;
+	height: 60px;
+	background-color: #006a6a;
+}
+
+nav div {
+	margin-top: 15px;
+	color: #ffff;
+	font-size: 2rem;
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+nav div span {
+	font-weight: bold;
+	font-family: 'Open Sans Condensed', sans-serif;
+}

@@ -1,4 +1,5 @@
 .box-section {
+	margin-bottom: 80px;
 	display: flex;
 	flex-direction: column;
 	padding: 0 1.5rem;
@@ -6,6 +7,6 @@
 
 .box-section h3 {
 	font-size: 2rem;
-	font-weight: bold;
+	font-weight: 900;
 	color: #017e39;
 }

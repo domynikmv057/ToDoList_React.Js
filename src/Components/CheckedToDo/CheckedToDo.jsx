@@ -9,7 +9,7 @@ function CheckedToDo({ item, onDelete, onChecked }) {
 					className="check-input"
 					type="checkbox"
 					value={item.checked}
-					checked={item.checked}
+					checked
 					onChange={() => onChecked(item)}
 				/>
 				{item && item.desc}

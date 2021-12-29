@@ -1,9 +1,13 @@
 import './UncheckedToDo.css';
 import { RiPencilFill } from 'react-icons/ri';
 import { FaTrash } from 'react-icons/fa';
-//import { AiOutlineCheck } from 'react-icons/ai';
+import { useState } from 'react';
+import { AiOutlineCheck } from 'react-icons/ai';
 
-function UncheckedToDo({ item, onDelete, onChecked }) {
+function UncheckedToDo({ item, onDelete, onChecked, onEditing }) {
+	let [isEditing, setIsEditing] = useState(false);
+	let [editToDo, setEditToDo] = useState([]);
+
 	return (
 		<li className="list-item">
 			<div className="item-left">
@@ -13,12 +17,40 @@ function UncheckedToDo({ item, onDelete, onChecked }) {
 					value={item.checked}
 					onChange={() => onChecked(item)}
 				/>
-				{item && item.desc}
+				{isEditing ? (
+					<input
+						className="editInput"
+						type="text"
+						value={editToDo}
+						onChange={(valChange) => setEditToDo(valChange.target.value)}
+					/>
+				) : (
+					item && item.desc
+				)}
 			</div>
 			<div className="item-rigth">
-				<button className="list-icons-style">
-					<RiPencilFill />
-				</button>
+				{isEditing ? (
+					<button
+						className="list-icons-style"
+						onClick={() => {
+							onEditing(item, editToDo);
+							setEditToDo('');
+							setIsEditing(false);
+						}}
+					>
+						<AiOutlineCheck />
+					</button>
+				) : (
+					<button
+						className="list-icons-style"
+						onClick={() => {
+							setIsEditing(true);
+							setEditToDo(item.desc);
+						}}
+					>
+						<RiPencilFill />
+					</button>
+				)}
 				<button
 					className="list-icons-style"
 					onClick={() => {

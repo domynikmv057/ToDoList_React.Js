@@ -2,6 +2,7 @@
 	list-style: none;
 	color: grey;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 	border-bottom: 1px solid #a8a4a4;

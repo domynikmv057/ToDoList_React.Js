@@ -1,33 +1,13 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import './stles.css';
-import logEmix from './imagens/logoEmix.png';
+import './styles.css';
 import ToDoBox from './Components/ToDoBox/ToDoBox';
 import { v4 } from 'uuid';
+import NavBar from './Components/NavBar/NavBar';
 
 function App() {
 	let [toDoList, setToDoList] = useState([]);
 	let [novoToDo, setNovoToDo] = useState('');
-	let [editToDo, setEditToDo] = useState([]);
-
-
-	function editToDos(index, item) {
-		setEditToDo(item);
-		let toDoListTemp = [...toDoList];
-		let tempToDo = item;
-		tempToDo.isEdit = true;
-		toDoListTemp.splice(index, 1, tempToDo);
-		setToDoList(toDoListTemp);
-	}
-
-	function salvarToDo(index, item) {
-		let toDoListTemp = [...toDoList];
-		let tempToDo = item;
-		tempToDo.desc = editToDo;
-		tempToDo.isEdit = false;
-		toDoListTemp.splice(index, 1, tempToDo);
-		setToDoList(toDoListTemp);
-	}
 
 	function addToDoItem(text) {
 		setToDoList([
@@ -36,7 +16,6 @@ function App() {
 				id: v4(),
 				desc: text,
 				checked: false,
-				isEdit: false,
 			},
 		]);
 		setNovoToDo('');
@@ -53,6 +32,13 @@ function App() {
 		]);
 	}
 
+	function attToDoDesc(item, editToDo) {
+		setToDoList([
+			...toDoList.filter((i) => i !== item),
+			{ ...item, desc: editToDo },
+		]);
+	}
+
 	useEffect(() => {
 		const localStorageRepo = localStorage.getItem('toDoList');
 		if (localStorageRepo) {
@@ -66,16 +52,7 @@ function App() {
 
 	return (
 		<>
-			<nav>
-				<div>
-					<p>
-						<span>TODO</span> LIST
-					</p>
-				</div>
-				<div>
-					<img src={logEmix} alt="logo" width="140px" />
-				</div>
-			</nav>
+			<NavBar />
 			<main>
 				<div className="addTasck">
 					<input
@@ -89,6 +66,7 @@ function App() {
 				<ToDoBox
 					onChecked={checkItem}
 					onDelete={deleteToDoItem}
+					onEditing={attToDoDesc}
 					title="A fazer"
 					itemList={toDoList.filter((item) => !item.checked)}
 				/>
@@ -96,6 +74,7 @@ function App() {
 				<ToDoBox
 					onChecked={checkItem}
 					onDelete={deleteToDoItem}
+					onEditing={attToDoDesc}
 					title="Feito"
 					itemList={toDoList.filter((item) => item.checked)}
 				/>
