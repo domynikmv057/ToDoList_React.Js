@@ -48,6 +48,7 @@ main {
 }
 
 .tasksContainer {
+	justify-content: initial;
 	margin: 0px 20px;
 	height: max-content;
 }

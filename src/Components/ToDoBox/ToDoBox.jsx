@@ -1,4 +1,5 @@
 import './ToDoBox.css';
+import UncheckedToDo from '../UncheckedToDo/UncheckedToDo';
 
 function ToDoBox ({title, itemList}) {
 
@@ -6,7 +7,7 @@ function ToDoBox ({title, itemList}) {
         <section className='box-section'>
             <h3> {title} </h3>
             <ul>
-                {itemList.map(item => <li> {item.desc} </li>)}
+                {itemList.map(item => <UncheckedToDo text={item.desc} />)}
             </ul>
         </section>
     )
