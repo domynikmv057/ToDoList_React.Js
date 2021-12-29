@@ -6,72 +6,63 @@ import ToDoBox from './Components/ToDoBox/ToDoBox';
 import { v4 } from 'uuid';
 
 function App() {
-	let [toDoLista, setToDoLista] = useState([]);
+	let [toDoList, setToDoList] = useState([]);
 	let [novoToDo, setNovoToDo] = useState('');
 	let [editToDo, setEditToDo] = useState([]);
 
 
-
-	function toDoChecked(index, event, item) {
-		let toDoListTemp = [...toDoLista];
-		let tempToDo = item;
-		tempToDo.checked = event.target.checked;
-		toDoListTemp.splice(index, 1, tempToDo);
-		setToDoLista(toDoListTemp);
-	}
-
 	function editToDos(index, item) {
 		setEditToDo(item);
-		let toDoListTemp = [...toDoLista];
+		let toDoListTemp = [...toDoList];
 		let tempToDo = item;
 		tempToDo.isEdit = true;
 		toDoListTemp.splice(index, 1, tempToDo);
-		setToDoLista(toDoListTemp);
+		setToDoList(toDoListTemp);
 	}
 
 	function salvarToDo(index, item) {
-		let toDoListTemp = [...toDoLista];
+		let toDoListTemp = [...toDoList];
 		let tempToDo = item;
 		tempToDo.desc = editToDo;
 		tempToDo.isEdit = false;
 		toDoListTemp.splice(index, 1, tempToDo);
-		setToDoLista(toDoListTemp);
+		setToDoList(toDoListTemp);
 	}
 
-	function deletarToDos(index) {
-		let toDoListTemp = [...toDoLista];
-		toDoListTemp.splice(index, 1);
-		setToDoLista(toDoListTemp);
+	function addToDoItem(text) {
+		setToDoList([
+			...toDoList,
+			{
+				id: v4(),
+				desc: text,
+				checked: false,
+				isEdit: false,
+			},
+		]);
+		setNovoToDo('');
 	}
 
-
-	function addToDoItem (text) {
-		setToDoLista([...toDoLista, {
-			id: v4(),
-			desc: text ,
-			checked: false,
-			isEdit: false
-		}])
-		setNovoToDo("")
+	function deleteToDoItem(id) {
+		setToDoList(toDoList.filter((item) => item.id !== id));
 	}
 
-	function deleteToDoItem (id){
-		let a = toDoLista.filter(item => item.id !== id)
-		console.log(a);
+	function checkItem(item) {
+		setToDoList([
+			...toDoList.filter((i) => i !== item),
+			{ ...item, checked: !item.checked },
+		]);
 	}
 
 	useEffect(() => {
-		const localStorageRepo = localStorage.getItem('toDoLista');
+		const localStorageRepo = localStorage.getItem('toDoList');
 		if (localStorageRepo) {
-			setToDoLista(JSON.parse(localStorageRepo));
+			setToDoList(JSON.parse(localStorageRepo));
 		}
 	}, []);
 
 	useEffect(() => {
-		localStorage.setItem('toDoLista', JSON.stringify(toDoLista));
-	}, [toDoLista]);
-
-
+		localStorage.setItem('toDoList', JSON.stringify(toDoList));
+	}, [toDoList]);
 
 	return (
 		<>
@@ -95,10 +86,19 @@ function App() {
 					/>
 					<button onClick={() => addToDoItem(novoToDo)}>ADICIONAR</button>
 				</div>
-				<ToDoBox title="A fazer" itemList={toDoLista.filter(item => !item.checked)} />
+				<ToDoBox
+					onChecked={checkItem}
+					onDelete={deleteToDoItem}
+					title="A fazer"
+					itemList={toDoList.filter((item) => !item.checked)}
+				/>
 
-				<ToDoBox title="Feito" itemList={toDoLista.filter(item => item.checked) } />
-
+				<ToDoBox
+					onChecked={checkItem}
+					onDelete={deleteToDoItem}
+					title="Feito"
+					itemList={toDoList.filter((item) => item.checked)}
+				/>
 			</main>
 		</>
 	);
