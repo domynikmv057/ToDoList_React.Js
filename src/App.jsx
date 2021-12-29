@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import './stles.css';
 import logEmix from './imagens/logoEmix.png';
 import ToDoBox from './Components/ToDoBox/ToDoBox';
-import {  v5 } from 'uuid'
 import { v4 } from 'uuid';
 
 function App() {
@@ -45,12 +44,6 @@ function App() {
 		setToDoLista(toDoListTemp);
 	}
 
-	function idAleatorio() {
-		const min = 1;
-		const max = 999;
-		return Math.floor(Math.random() * (max - min + 1)) + min;
-	}
-
 
 	function addToDoItem (text) {
 		setToDoLista([...toDoLista, {
@@ -60,6 +53,11 @@ function App() {
 			isEdit: false
 		}])
 		setNovoToDo("")
+	}
+
+	function deleteToDoItem (id){
+		let a = toDoLista.filter(item => item.id !== id)
+		console.log(a);
 	}
 
 	useEffect(() => {

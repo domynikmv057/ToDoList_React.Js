@@ -1,12 +1,12 @@
 import './CheckedToDo.css';
 import { FaTrash } from 'react-icons/fa';
 
-function CheckedToDo({text}) {
+function CheckedToDo({item, onDelete}) {
 	return (
 		<li className="list-item text-edit">
 			<div className="item-left">
 				<input className="check-input" type="checkbox" />
-				{text}
+				{item && item.desc}
 			</div>
 			<div className="item-rigth">
 				<button className="list-icons-style">
