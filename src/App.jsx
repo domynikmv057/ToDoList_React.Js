@@ -5,6 +5,9 @@ import { FaTrash } from 'react-icons/fa';
 import { AiOutlineCheck } from 'react-icons/ai';
 import './stles.css';
 import logEmix from './imagens/logoEmix.png';
+import ToDoBox from './Components/ToDoBox/ToDoBox';
+
+
 
 function App() {
 	let [toDoLista, setToDoLista] = useState([]);
@@ -35,6 +38,7 @@ function App() {
 				</div>
 			</nav>
 			<main>
+        <ToDoBox title="A fazer" itemList={toDoLista} />
 				<div className="addTasck">
 					<input
 						value={novoToDo}
