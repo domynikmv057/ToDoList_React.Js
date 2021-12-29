@@ -1,5 +1,5 @@
 import './NavBar.css';
-import logEmix from '../../imagens/logoEmix.png';
+import logEmix from '../../assets/imagens/logoEmix.png';
 
 function NavBar() {
 	return (

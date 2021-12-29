@@ -7,7 +7,7 @@ import NavBar from './Components/NavBar/NavBar';
 
 function App() {
 	let [toDoList, setToDoList] = useState([]);
-	let [novoToDo, setNovoToDo] = useState('');
+	let [newToDo, setNewToDo] = useState('');
 
 	function addToDoItem(text) {
 		setToDoList([
@@ -18,7 +18,7 @@ function App() {
 				checked: false,
 			},
 		]);
-		setNovoToDo('');
+		setNewToDo('');
 	}
 
 	function deleteToDoItem(id) {
@@ -56,12 +56,12 @@ function App() {
 			<main>
 				<div className="addTasck">
 					<input
-						value={novoToDo}
-						onChange={(valChange) => setNovoToDo(valChange.target.value)}
+						value={newToDo}
+						onChange={(valChange) => setNewToDo(valChange.target.value)}
 						type="text"
 						placeholder="Digite aqui uma nova tarefa..."
 					/>
-					<button onClick={() => addToDoItem(novoToDo)}>ADICIONAR</button>
+					<button onClick={() => addToDoItem(newToDo)}>ADICIONAR</button>
 				</div>
 				<ToDoBox
 					onChecked={checkItem}
