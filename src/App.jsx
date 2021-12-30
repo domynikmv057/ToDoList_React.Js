@@ -56,7 +56,7 @@ function App() {
 		<>
 			<NavBar />
 			<main>
-				<div className="addTasck">
+				<div className="add-task">
 					<input
 						value={newToDo}
 						onChange={(valChange) => setNewToDo(valChange.target.value)}
