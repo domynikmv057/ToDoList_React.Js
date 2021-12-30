@@ -10,14 +10,16 @@ function App() {
 	let [newToDo, setNewToDo] = useState('');
 
 	function addToDoItem(text) {
-		setToDoList([
-			...toDoList,
-			{
-				id: v4(),
-				desc: text,
-				checked: false,
-			},
-		]);
+		if (text !== '') {
+			setToDoList([
+				...toDoList,
+				{
+					id: v4(),
+					desc: text,
+					checked: false,
+				},
+			]);
+		}
 		setNewToDo('');
 	}
 
